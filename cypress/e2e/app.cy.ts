@@ -48,4 +48,8 @@ describe("App", function () {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
       );
   });
+
+  it("should render pokemon name", () => {
+    cy.get("h1").should("contain", "bulbasaur");
+  });
 });

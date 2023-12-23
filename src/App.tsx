@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./App.css";
 
 export interface Pokemon {
@@ -17,11 +17,16 @@ const App: React.FC = () => {
   const [index, setIndex] = React.useState(1);
   const [pokemons, setPokemons] = React.useState<PokemonList>();
 
-  const fetchPokemons = async () =>
-    await (await fetch("https://pokeapi.co/api/v2/pokemon/?limit=2000")).json();
-  const initPokemonsList = async () => {
+  const fetchPokemons = useCallback(
+    async () =>
+      await (
+        await fetch("https://pokeapi.co/api/v2/pokemon/?limit=2000")
+      ).json(),
+    []
+  );
+  const initPokemonsList = useCallback(async () => {
     setPokemons(await fetchPokemons());
-  };
+  }, [fetchPokemons]);
 
   useEffect(() => {
     initPokemonsList();
@@ -30,7 +35,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>{pokemons?.results[index - 1].name}</h1>
+        {index && <h1>{pokemons?.results[index - 1].name}</h1>}
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`}
           className="App-logo"

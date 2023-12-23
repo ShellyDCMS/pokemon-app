@@ -36,4 +36,16 @@ describe("App", function () {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
       );
   });
+
+  it("should render prev pokemon when prev button is clicked", () => {
+    cy.get("button").contains("Next").click();
+    cy.get("button").contains("Next").click();
+    cy.get("button").contains("Prev").click();
+    cy.get("img")
+      .should("have.attr", "src")
+      .should(
+        "include",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
+      );
+  });
 });

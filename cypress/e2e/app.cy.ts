@@ -52,4 +52,8 @@ describe("App", function () {
   it("should render pokemon name", () => {
     cy.get("h1").should("contain", "bulbasaur");
   });
+
+  it("prev button should be disabled when first pokemon is rendered", () => {
+    cy.get("button").contains("Prev").should("be.disabled");
+  });
 });

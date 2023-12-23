@@ -1,5 +1,6 @@
 // type definitions for Cypress object "cy"
 /// <reference types="cypress" />
+import { PokemonList } from "../../src/App";
 
 describe("App", function () {
   beforeEach(function () {
@@ -55,5 +56,25 @@ describe("App", function () {
 
   it("prev button should be disabled when first pokemon is rendered", () => {
     cy.get("button").contains("Prev").should("be.disabled");
+  });
+
+  describe("integration tests", () => {
+    const singlePokemonList: PokemonList = {
+      next: null,
+      previous: null,
+      results: [
+        { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
+      ],
+      count: 1,
+    };
+
+    beforeEach(() => {
+      cy.intercept("https://pokeapi.co/api/v2/pokemon/*", singlePokemonList);
+      cy.visit("/");
+    });
+
+    it("next button should be disabled when last pokemon is rendered", () => {
+      cy.get("button").contains("Next").should("be.disabled");
+    });
   });
 });

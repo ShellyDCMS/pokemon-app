@@ -18,4 +18,8 @@ describe("App", function () {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
       );
   });
+
+  it("should render next button", () => {
+    cy.get("button").should("contain", "Next");
+  });
 });

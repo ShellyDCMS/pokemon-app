@@ -26,4 +26,14 @@ describe("App", function () {
   it("should render previous button", () => {
     cy.get("button").should("contain", "Prev");
   });
+
+  it("should render next pokemon when next button is clicked", () => {
+    cy.get("button").click();
+    cy.get("img")
+      .should("have.attr", "src")
+      .should(
+        "include",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
+      );
+  });
 });

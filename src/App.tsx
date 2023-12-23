@@ -42,7 +42,9 @@ const App: React.FC = () => {
           alt="logo"
         />
         <button onClick={() => setIndex(index + 1)}>Next</button>
-        <button onClick={() => setIndex(index - 1)}>Prev</button>
+        <button disabled={index === 1} onClick={() => setIndex(index - 1)}>
+          Prev
+        </button>
       </header>
     </div>
   );

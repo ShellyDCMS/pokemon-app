@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 export interface Pokemon {
@@ -14,42 +14,52 @@ export interface PokemonList {
 }
 
 const App: React.FC = () => {
-  const [index, setIndex] = React.useState(1);
-  const [pokemons, setPokemons] = React.useState<PokemonList>();
+  const [pokemon, setPokemon] = React.useState<PokemonList>();
 
-  const fetchPokemons = useCallback(
-    async () =>
-      await (
-        await fetch("https://pokeapi.co/api/v2/pokemon/?limit=2000")
-      ).json(),
-    []
-  );
-  const initPokemonsList = useCallback(async () => {
-    setPokemons(await fetchPokemons());
-  }, [fetchPokemons]);
+  const fetchNext = async () =>
+    pokemon &&
+    pokemon.next &&
+    setPokemon(await (await fetch(pokemon.next)).json());
+
+  const fetchPrev = async () =>
+    pokemon &&
+    pokemon.previous &&
+    setPokemon(await (await fetch(pokemon.previous)).json());
 
   useEffect(() => {
-    initPokemonsList();
-  }, [initPokemonsList]);
+    const getFirstPokemon = async () =>
+      setPokemon(
+        await (await fetch("https://pokeapi.co/api/v2/pokemon/?limit=1")).json()
+      );
+    getFirstPokemon();
+  }, []);
 
+  const getPokemonIndex = () =>
+    pokemon?.results[0].url
+      .split("/")
+      .filter((element) => element)
+      .pop();
+  const getPokemonName = () => pokemon?.results[0].name;
+  const getPokemonImage = () =>
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonIndex()}.png`;
   return (
     <div className="App">
       <header className="App-header">
-        {index && <h1>{pokemons?.results[index - 1].name}</h1>}
-        <img
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`}
-          className="App-logo"
-          alt="logo"
-        />
-        <button
-          disabled={index === pokemons?.count}
-          onClick={() => setIndex(index + 1)}
-        >
-          Next
-        </button>
-        <button disabled={index === 1} onClick={() => setIndex(index - 1)}>
-          Prev
-        </button>
+        {pokemon && (
+          <>
+            <h1> {getPokemonName()}</h1>
+            <img src={getPokemonImage()} className="App-logo" />
+            <button onClick={fetchNext} disabled={!(pokemon && pokemon.next)}>
+              Next
+            </button>
+            <button
+              onClick={fetchPrev}
+              disabled={!(pokemon && pokemon.previous)}
+            >
+              Prev
+            </button>
+          </>
+        )}
       </header>
     </div>
   );

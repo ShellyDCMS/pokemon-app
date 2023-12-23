@@ -24,6 +24,6 @@ describe("App", function () {
   });
 
   it("should render previous button", () => {
-    cy.get("button").should("contain", "Previous");
+    cy.get("button").should("contain", "Prev");
   });
 });

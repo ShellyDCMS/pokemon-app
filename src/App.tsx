@@ -11,6 +11,7 @@ const App: React.FC = () => {
           alt="logo"
         />
         <button>Next</button>
+        <button>Prev</button>
       </header>
     </div>
   );

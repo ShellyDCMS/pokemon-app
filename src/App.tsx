@@ -10,6 +10,7 @@ const App: React.FC = () => {
           className="App-logo"
           alt="logo"
         />
+        <button>Next</button>
       </header>
     </div>
   );

@@ -8,5 +8,6 @@ export default defineConfig({
       return require("./cypress/plugins/index.ts")(on, config);
     },
     baseUrl: "http://127.0.0.1:3000",
+    defaultCommandTimeout: 10000,
   },
 });

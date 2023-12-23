@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initPokemonsList();
-  }, []);
+  }, [initPokemonsList]);
 
   return (
     <div className="App">

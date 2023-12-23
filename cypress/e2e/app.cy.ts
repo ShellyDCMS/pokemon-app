@@ -28,7 +28,7 @@ describe("App", function () {
   });
 
   it("should render next pokemon when next button is clicked", () => {
-    cy.get("button").click();
+    cy.get("button").contains("Next").click();
     cy.get("img")
       .should("have.attr", "src")
       .should(

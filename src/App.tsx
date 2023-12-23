@@ -41,7 +41,12 @@ const App: React.FC = () => {
           className="App-logo"
           alt="logo"
         />
-        <button onClick={() => setIndex(index + 1)}>Next</button>
+        <button
+          disabled={index === pokemons?.count}
+          onClick={() => setIndex(index + 1)}
+        >
+          Next
+        </button>
         <button disabled={index === 1} onClick={() => setIndex(index - 1)}>
           Prev
         </button>

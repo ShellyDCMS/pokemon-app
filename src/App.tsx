@@ -48,7 +48,7 @@ const App: React.FC = () => {
         {pokemon && (
           <>
             <h1> {getPokemonName()}</h1>
-            <img src={getPokemonImage()} className="App-logo" />
+            <img src={getPokemonImage()} className="App-logo" alt="pokemon" />
             <button onClick={fetchNext} disabled={!(pokemon && pokemon.next)}>
               Next
             </button>

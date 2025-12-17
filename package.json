@@ -21,6 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy" : "gh-page -d build",
     "cypress:open": "cypress open",
     "cypress:run": "start-server-and-test 'npm run start' http://127.0.0.1:3000 'cypress run'"
   },
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "cypress": "^13.6.1",
+    "gh-pages": "^6.3.0",
     "start-server-and-test": "^2.0.3"
   }
 }
